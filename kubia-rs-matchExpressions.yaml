@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+    name: kubia-rs-me
+spec:
+    replicas: 2
+    selector:
+        matchExpressions:
+            - key: app
+              operator: In
+              values: 
+                - kubia-me
+    template:
+        metadata:
+            labels:
+                app: kubia-me
+        spec:
+            containers:
+            - image: yumingtao/kubia
+              name: kubia
+              ports:
+              - containerPort: 8080
+                protocol: TCP
