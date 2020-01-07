@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fortune
+spec:
+  containers:
+  - image: yumingtao/fortune  #第一个容器用于生成html
+    name: html-generator
+    volumeMounts:
+    - name: html
+      mountPath: /var/htdocs  #名为html的卷挂载在容器的/var/htdocs中
+  - image: nginx:alpine  #第二个容器为web-server
+    name: web-server
+    volumeMounts:
+    - name: html
+      mountPath: /usr/share/nginx/html #将名为html的卷挂载自己容器的/usr/share/nginx/html，设为只读
+      readOnly: true
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+  volumes:
+    - name: html #一个名为html单独emptyDir卷，挂载在上面两个容器中
+      emptyDir: {}
