@@ -3,10 +3,10 @@ kind: Service
 metadata:
     name: kubia-nodeport
 spec:
-    type: NodePort
+    type: NodePort #如果不指定默认是ClusterIP
     ports:
     - port: 80 #服务集群ip的端口号
       targetPort: 8080
       nodePort: 30123 #通过集群节点的30123端口可以访问该服务
     selector:
-        app: kubia
+        app: kubia-n
