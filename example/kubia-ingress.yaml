@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+    name: kubia-ingress
+spec:
+    rules:
+    - host: kubia.example.com #将域名映射到服务
+      http:
+        paths:
+        - path: /    #将所有的请求发送到kubia-nodeport服务的80端口
+          backend:
+            serviceName: kubia-nodeport
+            servicePort: 80
