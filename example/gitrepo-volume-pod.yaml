@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gitrepo-volume-pod
+spec:
+  containers:
+  - image: nginx:alpine
+    name: web-server
+    volumeMounts:
+    - name: html
+      mountPath: /usr/share/nginx/html #将名为html的卷挂载自己容器的/usr/share/nginx/html，设为只读
+      readOnly: true
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+  volumes:
+    - name: html #一个名为html单独emptyDir卷，挂载在上面两个容器中
+      gitRepo:
+        repository: https://github.com/yumingtao/kubia-website-example.git
+        revision: master
+        directory: .
