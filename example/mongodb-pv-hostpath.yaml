@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongodb-pv
+spec:
+    capacity:
+        storage: 1Gi #定义pv的大小
+    accessModes:
+    - ReadWriteOnce #可以被单个客户端挂载为读写模式
+    - ReadOnlyMany  #可以被多个客户端挂载为只读模式
+  persistentVolumeReclaimPolicy: Retain #当声明被释放后，pv将会被保留，不清理和删除
+  hostPath: 
+    path: /tmp/mongodb
