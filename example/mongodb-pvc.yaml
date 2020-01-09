@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongodb-pvc
+spec:
+    resources:
+        requests:
+            storage: 1Gi #申请存储空间，创建的pv的容量满足pvc的需求才会被绑定到该pvc中 
+    accessModes:
+    - ReadWriteOnce #可以被单个客户端挂载为读写模式，创建的pv的访问模式包含pvc的访问模式才允许被绑定到pvc中
+    storageClassName: ""
